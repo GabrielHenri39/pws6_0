@@ -7,7 +7,6 @@ from django.contrib import messages
 from django.contrib.messages import constants
 
 
-
 def cadastro(request):
     if request.method == "GET":
         return render(request, 'cadastro.html')
@@ -17,13 +16,14 @@ def cadastro(request):
         senha = request.POST.get('senha')
         confirmar_senha = request.POST.get('confirmar_senha')
 
-        if not password_is_valid(request=request,password=senha, confirm_password= confirmar_senha):
+        if not password_is_valid(request=request, password=senha, confirm_password=confirmar_senha):
             return redirect(reverse('cadastro'))
 
         user = User.objects.filter(username=username)
 
         if user.exists():
-            messages.add_message(request, constants.ERROR, 'Já existe um usário com esse username')
+            messages.add_message(request, constants.ERROR,
+                                 'Já existe um usário com esse username')
             return redirect(reverse('cadastro'))
 
         user = User.objects.create_user(
@@ -42,11 +42,12 @@ def login(request):
         user = auth.authenticate(username=username, password=senha)
 
         if not user:
-            messages.add_message(request, constants.ERROR, 'Username ou senha inválidos')
+            messages.add_message(request, constants.ERROR,
+                                 'Username ou senha inválidos')
             return redirect(reverse('login'))
-        
+
         auth.login(request, user)
-        return redirect('/eventos/novo_evento/')
+        return redirect(reverse('novo_evento'))
 
 
 def sair(request):

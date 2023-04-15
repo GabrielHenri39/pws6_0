@@ -1,0 +1,31 @@
+{% extends "bases/base_evento.html" %}
+{% load static %}
+
+
+{% block 'conteudo' %}
+
+<div class="container">
+    <br>
+    <br>
+    <div class="row">
+        {% for certificado in certificados %}
+            <div class="col-md-4">
+                 
+            {% for evento in eventos %}
+                <tr class="{% cycle 'linha' 'linha2' %}">
+                    <td width="10%"><img width="100%" src="{{evento.logo.url}}"></td>
+                    <td>{{evento.nome}}</td>
+                    <td>{{evento.descricao }}</td>
+                    <td>{{evento.data_inicio}}</td>
+                    <td>{{evento.data_termino}}</td>
+                    
+                </tr>
+            {% endfor %}
+
+                
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
