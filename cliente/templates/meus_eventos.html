@@ -1,31 +1,39 @@
 {% extends "bases/base_evento.html" %}
 {% load static %}
 
+{% block 'importacoes' %}
+    <link href="{% static 'eventos/css/gerenciar_evento.css' %}" rel="stylesheet">
+{% endblock %}
 
 {% block 'conteudo' %}
 
-<div class="container">
-    <br>
-    <br>
-    <div class="row">
-        {% for certificado in certificados %}
-            <div class="col-md-4">
-                 
-            {% for evento in eventos %}
-                <tr class="{% cycle 'linha' 'linha2' %}">
-                    <td width="10%"><img width="100%" src="{{evento.logo.url}}"></td>
-                    <td>{{evento.nome}}</td>
-                    <td>{{evento.descricao }}</td>
-                    <td>{{evento.data_inicio}}</td>
-                    <td>{{evento.data_termino}}</td>
+    <div class="container">
+        <br>
+        <br>
+        
+                <table>
+                    <tr>
+                        <th>Logo</th>
+                        <th>Título</th>
+                        <th>Descrição</th>
+                        <th>Início</th>
+                        <th>Término</th>
+                        <th>Link de inscrição</th>
+                    </tr>
                     
-                </tr>
-            {% endfor %}
-
-                
-            </div>
-        {% endfor %}
+                    {% for evento in eventos %}
+                        <tr class="{% cycle 'linha' 'linha2' %}">
+                            <td width="10%"><a href="{% url 'participantes_evento' evento.id %}"><img width="100%" src="/media/{{evento.logo}}"></a></td>
+                            <td>{{evento.nome}}</td>
+                            <td>{{evento.descricao}}</td>
+                            <td>{{evento.data_inicio}}</td>
+                            <td>{{evento.data_termino}}</td>
+                            
+                        </tr>
+                    {% endfor %}
+                        
+                </table>
+          
     </div>
-</div>
 
 {% endblock %}
